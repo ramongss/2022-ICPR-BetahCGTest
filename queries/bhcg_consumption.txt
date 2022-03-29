@@ -1,0 +1,22 @@
+select
+    w.region,
+    ca.name as exam,
+    ca.exam_index::numeric as index,
+    date_trunc('day', ca.begintime) as day,
+    count(day) as n_exams
+from
+    hilabdb.capsule_all ca
+    inner join hilabdb.workplace w on (ca.cnpj = w.cnpj)
+where
+    day < current_date
+    and w.group <> 'BUTANTAN'
+    and ca.origin not in ('research', 'butantanResearch')
+    and (w.butantan is false or w.butantan is null)
+    and w.segment not in ('ORGAO_PUBLICO','EVENTOS')
+    and w.comercial is true
+    and w.cnpj <> '07111023000112'
+    and index = 1
+group by
+    w.region, index, exam, day
+order by
+    w.region, index, day
