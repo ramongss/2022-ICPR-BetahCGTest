@@ -20,6 +20,9 @@ demand <-
   dplyr::ungroup() |>
   dplyr::mutate(mm = zoo::rollmean(n_exams, k = 7, fill = NA, align = "right"))
 
+demand |>
+  saveRDS(here::here("data", "demand.rds"))
+
 
 # define Min-Max normalization function
 min_max_norm <- function(x) {
