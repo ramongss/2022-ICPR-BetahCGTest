@@ -1,3 +1,4 @@
+-- Name: Ramon Gomes da Silva; Email: ramon.silva@hitechnologies.com.br; Service: Beta-hCG consumption forecasting
 select
     w.region,
     ca.name as exam,
@@ -8,7 +9,7 @@ from
     hilabdb.capsule_all ca
     inner join hilabdb.workplace w on (ca.cnpj = w.cnpj)
 where
-    day < current_date
+    day < '2022-04-01'
     and w.group <> 'BUTANTAN'
     and ca.origin not in ('research', 'butantanResearch')
     and (w.butantan is false or w.butantan is null)
